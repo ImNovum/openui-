@@ -2,12 +2,17 @@ This is an [OpenUI](https://openui.com) Self Hosted Chat project bootstrapped wi
 
 ## Setup
 
-Create `.env.local` with your OpenAI credentials:
+The chat endpoint (`src/app/api/chat/route.ts`) calls DeepSeek's OpenAI-compatible
+Chat Completions API directly (no n8n proxy) and streams the response back to the
+OpenUI chat UI.
+
+Create `.env.local` with your DeepSeek credentials:
 
 ```bash
-OPENAI_API_KEY=...
+DEEPSEEK_API_KEY=...
 # Optional:
-OPENAI_MODEL=gpt-5.2
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+DEEPSEEK_MODEL=deepseek-chat
 ```
 
 ## Getting Started
@@ -35,14 +40,14 @@ pnpm run deploy
 pnpm run deploy -- --prod
 ```
 
-The command deploys to Vercel. Allowlisted keys from `.env` / `.env.local` (including `OPENAI_API_KEY`) 
+The command deploys to Vercel. Allowlisted keys from `.env` / `.env.local` (including `DEEPSEEK_API_KEY`)
 are passed to that deployment unless you use `--skip-env`. Persist them on the Vercel project for later
 deploys.
 
 ## Framework deployments
 
-The Vercel AI SDK scaffold runs its backend inside the Next.js API route, so the
-frontend and backend can be deployed together as one Next.js project.
+The scaffold runs its backend inside the Next.js API route, so the frontend and backend
+are deployed together as one Next.js project (root directory: `templates/openui-self-hosted`).
 
 ## Conversation storage
 
