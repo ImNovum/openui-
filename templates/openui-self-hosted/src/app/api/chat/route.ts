@@ -2,6 +2,8 @@
 // page.tsx) and this handler forwards the request to n8n, then streams the
 // upstream response back unchanged so page.tsx keeps parsing the same OpenAI
 // NDJSON chunk shape via openAIReadableStreamAdapter().
+//
+// NOTE: never log or return the webhook URL itself — it is a secret.
 
 const WEBHOOK_URL = process.env.N8N_WEBHOOK_URL;
 
