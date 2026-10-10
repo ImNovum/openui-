@@ -5,8 +5,8 @@ import {
   AgentInterface,
   createTheme,
   fetchLLM,
+  openAIAdapter,
   openAIMessageFormat,
-  openAIReadableStreamAdapter,
   useSystemThemeMode,
 } from "@openuidev/react-ui";
 import { openuiLibrary } from "@openuidev/react-ui/genui-lib";
@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 
 const llm = fetchLLM({
   url: "/api/chat",
-  streamAdapter: openAIReadableStreamAdapter(),
+  streamAdapter: openAIAdapter(),
   messageFormat: openAIMessageFormat,
 });
 
