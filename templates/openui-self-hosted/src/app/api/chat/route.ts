@@ -1,8 +1,8 @@
 // Chat endpoint. The browser calls /api/chat (see page.tsx). This handler
 // forwards the request to the n8n brain (N8N_WEBHOOK_URL), which runs the
-// Osiris assistant and returns an OpenAI-format NDJSON stream, then pipes that
+// Osiris assistant and returns an OpenAI-format SSE stream, then pipes that
 // stream straight back to the browser. page.tsx parses it with
-// openAIReadableStreamAdapter(), which expects one JSON ChatCompletionChunk per line.
+// openAIAdapter(), which expects OpenAI SSE (data: ... events ending in data: [DONE]).
 //
 // Configure via env vars:
 //   N8N_WEBHOOK_URL   (required, e.g. https://host/webhook/Chat)
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
   return new Response(upstream.body, {
     status: 200,
     headers: {
-      "Content-Type": "application/x-ndjson",
+      "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
     },
   });
