@@ -18,10 +18,6 @@ const llm = fetchLLM({
   messageFormat: openAIMessageFormat,
 });
 
-// Fixed zoom-out for the generated UI. Lower = smaller, so more of the
-// generated interface fits on screen at once.
-const UI_ZOOM = 0.75;
-
 type TelegramThemeParams = {
   bg_color?: string;
   text_color?: string;
@@ -112,29 +108,20 @@ export default function Home() {
 
   return (
     <div style={{ height: "100vh", width: "100vw", overflow: "hidden" }}>
-      <div
-        style={{
-          width: `${100 / UI_ZOOM}vw`,
-          height: `${100 / UI_ZOOM}vh`,
-          transform: `scale(${UI_ZOOM})`,
-          transformOrigin: "top left",
-        }}
-      >
-        <AgentInterface
-          llm={llm}
-          componentLibrary={openuiLibrary}
-          agentName="OpenUI Self Hosted"
-          theme={
-            telegramTheme
-              ? {
-                  mode,
-                  lightTheme: telegramTheme.theme,
-                  darkTheme: telegramTheme.theme,
-                }
-              : { mode }
-          }
-        />
-      </div>
+      <AgentInterface
+        llm={llm}
+        componentLibrary={openuiLibrary}
+        agentName="OpenUI Self Hosted"
+        theme={
+          telegramTheme
+            ? {
+                mode,
+                lightTheme: telegramTheme.theme,
+                darkTheme: telegramTheme.theme,
+              }
+            : { mode }
+        }
+      />
     </div>
   );
 }
